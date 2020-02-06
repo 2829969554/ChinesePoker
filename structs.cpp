@@ -1,47 +1,87 @@
 #include "structs.h"
 
-
-inline Card getColor(const Card card)
+Card::Card(const Card& card)
 {
-	return card & ColorMask;
+	m_card = card.m_card;
 }
 
-inline Card getType(const Card card)
+Card::Card(cardColor color, cardType type)
 {
-	return card & TypeMask;
+	m_card = color | type;
 }
 
-std::string CardToString(const Card card)
+cardType Card::getType()
 {
-	// 完全可以打表实现，日后再改进
-	std::string s = "";
-	Card color = getColor(card);
-	Card type = getType(card);
+	return m_card & TypeMask;
+}
 
-	switch (color)
-	{
-	case DIAMOND: s += "方块"; break;
-	case HEART: s += "红桃"; break;
-	case SPADE: s += "黑桃"; break;
-	case CLUB: s += "梅花"; break;
-	}
+cardColor Card::getColor()
+{
+	return m_card & ColorMask;
+}
 
-	switch (type)
+
+
+bool Card::operator<(Card& card)
+{
+	cardType selfType = getType();
+	cardType cardType = card.getType();
+
+	return selfType == cardType ? getColor() < card.getColor() : selfType < cardType;
+}
+
+bool Card::operator==(Card& card)
+{
+	return getColor() == card.getColor() && getType() == card.getType();
+}
+
+Card::~Card()
+{
+}
+
+CardSet::CardSet()
+{
+	m_cards.clear();
+}
+
+CardSet::~CardSet()
+{
+}
+
+void CardSet::sort()
+{
+	std::sort(m_cards.begin(), m_cards.end());
+}
+
+void CardSet::push(Card card)
+{
+	m_cards.push_back(card);
+}
+
+void CardSet::remove(Card card)
+{
+	for (auto it = m_cards.begin(); it != m_cards.end(); ++it)
 	{
-	case _3: s += "3"; break; case _4: s += "4"; break; case _5: s += "5"; break;
-	case _6: s += "6"; break; case _7: s += "7"; break; case _8: s += "8"; break;
-	case _9: s += "9"; break; case _10: s += "10"; break; case _J: s += "J"; break;
-	case _Q: s += "Q"; break; case _K: s += "K"; break; case _A: s += "A"; break;
-	case _2: s += "2";
-	case JOKER_SMALL:
-		assert(s == ""); //大小王不得有花色
-		s += "小王";
-		break;
-	case JOKER_BIG:
-		assert(s == ""); //大小王不得有花色
-		s += "大王";
-		break;
+		if (*it == card)
+		{
+			m_cards.erase(it);
+			return;
+		}
 	}
-	assert(s != ""); // 是否为无效牌
-	return s;
+}
+
+void CardSet::remove(int index)
+{
+	remove(getCard(index));
+}
+
+Card CardSet::getCard(int index)
+{
+	assert(index >= 0 && index < m_cards.size());
+	return m_cards[index];
+}
+
+int CardSet::cardCount()
+{
+	return m_cards.size();
 }
