@@ -60,7 +60,6 @@ public:
 	~Card();
 };
 
-
 class CardSet {
 private:
 	std::vector<Card> m_cards;

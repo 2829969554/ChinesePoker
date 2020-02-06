@@ -20,8 +20,6 @@ cardColor Card::getColor()
 	return m_card & ColorMask;
 }
 
-
-
 bool Card::operator<(Card& card)
 {
 	cardType selfType = getType();
@@ -35,18 +33,14 @@ bool Card::operator==(Card& card)
 	return getColor() == card.getColor() && getType() == card.getType();
 }
 
-Card::~Card()
-{
-}
+Card::~Card() {}
 
 CardSet::CardSet()
 {
 	m_cards.clear();
 }
 
-CardSet::~CardSet()
-{
-}
+CardSet::~CardSet() {}
 
 void CardSet::sort()
 {
@@ -61,13 +55,11 @@ void CardSet::push(Card card)
 void CardSet::remove(Card card)
 {
 	for (auto it = m_cards.begin(); it != m_cards.end(); ++it)
-	{
 		if (*it == card)
 		{
 			m_cards.erase(it);
 			return;
 		}
-	}
 }
 
 void CardSet::remove(int index)
