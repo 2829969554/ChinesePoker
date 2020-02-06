@@ -1,1 +1,1 @@
-# ChinesePoker
+# ChinesePoker 斗地主
