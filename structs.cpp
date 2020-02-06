@@ -67,6 +67,13 @@ void CardSet::remove(int index)
 	remove(getCard(index));
 }
 
+void CardSet::swap(int indexA, int indexB)
+{
+	assert(indexA >= 0 && indexA < m_cards.size());
+	assert(indexB >= 0 && indexB < m_cards.size());
+	std::swap(m_cards[indexA], m_cards[indexB]);
+}
+
 Card CardSet::getCard(int index)
 {
 	assert(index >= 0 && index < m_cards.size());

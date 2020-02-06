@@ -6,7 +6,7 @@
 
 用八位（即char）即可表示一张扑克牌
 其中后四位表示牌型（3,4,5...K,A,2,小王,大王 分别对应1-15）
-前四位对应花色（0001梅花，0010黑桃，0011h方块，0100红桃）
+前四位对应花色（0001方块，0010梅花，0011红桃，0100黑桃）
 拓展：第一位可以用来表示是否为癞子牌
 */
 
@@ -23,10 +23,10 @@ class Card
 public:
 	// 牌的花色
 	const static cardColor JOKER = 0x00;
-	const static cardColor CLUB = 0x10;
-	const static cardColor SPADE = 0x20;
-	const static cardColor DIAMOND = 0x30;
-	const static cardColor HEART = 0x40;
+	const static cardColor DIAMOND = 0x10;
+	const static cardColor CLUB = 0x20;
+	const static cardColor HEART = 0x30;
+	const static cardColor SPADE = 0x40;
 	// 牌的种类
 	const static cardType _3 = 1;
 	const static cardType _4 = 2;
@@ -70,6 +70,7 @@ public:
 	void push(Card card);
 	void remove(Card card);
 	void remove(int index);
+	void swap(int indexA, int indexB);
 	Card getCard(int index);
 	int cardCount();
 };
